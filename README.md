@@ -1,6 +1,6 @@
 # Squarelink Sign In Example
 
-See the live demo [here](https://squarelink.github.io/Sign-In-Example)
+See the live demo [here](https://squarelink-inc.github.io/Sign-In-Example)
 
 This project is build with Vue.js (using Vue Cli 3).
 
