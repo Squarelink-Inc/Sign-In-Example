@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <img alt="Vue logo" width="400" src="https://squarelink.com/img/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h3>Squarelink Sign In Example</h3>
+    <a href="https://squarelink-inc.github.io/Sign-In-Example/" target="_blank">View the code</a>
+    <SampleApp/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/SampleApp.vue'
+import SampleApp from './components/SampleApp.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    SampleApp
   }
 }
 </script>

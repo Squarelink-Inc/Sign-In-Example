@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h4 class="title">Display all of your available account info using the implicit grant <i>(response_type=token)</i></h4>
+    <h4 class="title">Display all of your available account info using the implicit grant<br> <i>(response_type=token)</i></h4>
     <a v-bind:href="url">
       <img src="https://squarelink.com/img/sign-in.svg" width="240"/>
     </a>
