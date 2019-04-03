@@ -33,10 +33,10 @@ export default {
   components: { VueJsonPretty },
   data() {
     return {
-      url: `https://app.squarelink.com/authorize?`+
-      	`client_id=${config.client_id}`+
-      	`&scope=[user,wallets:read]`+
-      	`&redirect_uri=${config.redirect}`+
+      url: `${config.APP_URL}/authorize?`+
+      	`client_id=${config.CLIENT_ID}`+
+      	`&scope=[user,user:name,user:email,user:security,wallets:edit,wallets:create,wallets:remove,wallets:read]`+
+      	`&redirect_uri=${config.REDIRECT}`+
       	`&state=abcdef`+
       	`&response_type=token`,
       wallets: null,
@@ -53,12 +53,76 @@ export default {
       })
       return vars
     },
-    getWallets(access_token) {
-      return axios.get('https://api.squarelink.com/wallets', {
+
+
+    getWallet(access_token) {
+      return axios.get(`${config.API_URL}/wallet`, {
         params: {
           access_token,
-          currencies: 'ETH;BTC;LTC',
-          erc20: true
+          wallet_id: ''
+        }
+      }).then(({ data }) => {
+        //console.log(data)
+      })
+    },
+    editWallet(access_token) {
+      return axios.patch(`${config.API_URL}/wallet`, {
+        access_token,
+        wallet_id: '',
+        name: ''
+      }).then(({ data }) => {
+        console.log(data)
+      })
+    },
+    createWallet(access_token) {
+      return axios.post(`${config.API_URL}/wallet`, {
+        access_token,
+        name: ''
+      }).then(({ data }) => {
+        console.log(data)
+      })
+    },
+    removeWallet(access_token) {
+      return axios.delete(`${config.API_URL}/wallet`, {
+        params: {
+          access_token,
+          wallet_id: ''
+        }
+      }).then(({ data }) => {
+        console.log(data)
+      }).catch(err => {
+        console.log(err.response.data)
+      })
+    },
+    getName(access_token) {
+      return axios.get(`${config.API_URL}/user/name`, {
+        params: { access_token }
+      }).then(({ data }) => {
+        console.log(data)
+      })
+    },
+    getEmail(access_token) {
+      return axios.get(`${config.API_URL}/user/email`, {
+        params: { access_token }
+      }).then(({ data }) => {
+        console.log(data)
+      })
+    },
+    getSecurity(access_token) {
+      return axios.get(`${config.API_URL}/user/security`, {
+        params: { access_token }
+      }).then(({ data }) => {
+        console.log(data)
+      })
+    },
+
+
+
+
+    getWallets(access_token) {
+      return axios.get(`${config.API_URL}/wallets`, {
+        params: {
+          access_token
         }
       }).then(({ data }) => {
         const { success, ...wallets } = data
@@ -69,11 +133,10 @@ export default {
       })
     },
     getTxs(access_token) {
-      return axios.get('https://api.squarelink.com/txs', {
+      return axios.get(`${config.API_URL}/txs`, {
         params: {
           access_token,
-          currencies: 'ETH;BTC;LTC',
-          all_erc20: true
+          wallet_id: 'wafe8c3dbdecfa6f155318a92d262d0a2'
         }
       }).then(({ data }) => {
         const { txs } = data
@@ -84,7 +147,7 @@ export default {
       })
     },
     getUser(access_token) {
-      return axios.get('https://api.squarelink.com/user', {
+      return axios.get(`${config.API_URL}/user`, {
         params: { access_token }
       }).then(({ data }) => {
         const { success, ...info } = data
@@ -98,9 +161,18 @@ export default {
   mounted() {
     const { access_token, error } = this.getUrlVars()
     if (access_token) {
-      this.getWallets(access_token)
       this.getTxs(access_token)
       this.getUser(access_token)
+      this.getWallets(access_token)
+
+      // Testing
+      //this.getWallet(access_token)
+      //this.editWallet(access_token)
+      //this.createWallet(access_token)
+      //this.removeWallet(access_token)
+      //this.getName(access_token)
+      //this.getEmail(access_token)
+      //this.getSecurity(access_token)
     } else if (error) {
       this.error = error
     }

@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="Vue logo" width="400" src="https://squarelink.com/img/logo.png">
     <h3>Squarelink Sign In Example</h3>
-    <a href="https://github.com/Squarelink-Inc/Sign-In-Example/" target="_blank">View the code</a>
+    <a href="https://github.com/Squarelink-Inc/Sign-In-Example/blob/master/src/components/SampleApp.vue" target="_blank">View the code</a>
     <SampleApp/>
   </div>
 </template>
