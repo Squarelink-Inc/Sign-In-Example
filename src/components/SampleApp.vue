@@ -136,7 +136,6 @@ export default {
       return axios.get(`${config.API_URL}/txs`, {
         params: {
           access_token,
-          wallet_id: 'wafe8c3dbdecfa6f155318a92d262d0a2'
         }
       }).then(({ data }) => {
         const { txs } = data
@@ -144,6 +143,23 @@ export default {
       }).catch(err => {
         const { message } = err.response.data
         this.error = message
+      })
+    },
+    getTx(access_token) {
+      return axios.get(`${config.API_URL}/tx`, {
+        params: {
+          access_token,
+          id: '0x05ae19a5199caa5256c36fa9c58aa4db4e183c9861d9b277ef2be2d045cc329',
+          network: 'custom',
+          network_config: {
+            url: 'http://localhost:8545'
+          }
+        }
+      }).then(({ data }) => {
+        console.log(data.tx)
+      }).catch(err => {
+        const { message } = err.response.data
+        console.log(message)
       })
     },
     getUser(access_token) {
@@ -173,6 +189,7 @@ export default {
       //this.getName(access_token)
       //this.getEmail(access_token)
       //this.getSecurity(access_token)
+      //this.getTx(access_token)
     } else if (error) {
       this.error = error
     }
